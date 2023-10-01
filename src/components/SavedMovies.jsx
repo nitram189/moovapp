@@ -41,7 +41,7 @@ export default function SavedMovies() {
 
     return (
         <>
-          { favMovies.length === 0 
+          { favMovies?.length === 0 
             ? <p className="text-white font-bold md:text-xl p-5 md:p-10">There are no selected movies yet.</p>
             : <h2 className="text-white font-bold md:text-xl p-5 md:p-10">Have a look at your favorites movies.</h2> }
 

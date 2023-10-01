@@ -76,12 +76,12 @@ export default function Login() {
                 className="mr-2"/>Remember me
               </p>
 
-                <Link to='#' className="text-gray-300 hover:text-white duration-200 ease-in">Need help?</Link>
+                <Link to='https://www.themoviedb.org/' target='_blank' className="text-gray-300 hover:text-white duration-200 ease-in">Need help?</Link>
             </div>
 
             <p className="text-gray-300 py-5">New to Moovap?{' '}
               <span className="font-semibold text-white">
-              <Link to='/login'>
+              <Link to='/signup'>
                 Sign Up
               </Link>
               </span></p>

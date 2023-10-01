@@ -26,7 +26,7 @@ export default function SignUp() {
 
     try {
       await signUp( email, password )
-      navigate('/')
+      navigate('/login')
     }
     catch (error) {
       console.log( error )

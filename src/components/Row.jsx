@@ -4,7 +4,7 @@ import { getRowMovies } from "../../services";
 import { MdChevronLeft, MdChevronRight } from "react-icons/md";
 
 
-export default function Row({ rowId, rowTitle, fetchUrl }) {
+export default function Row({ rowId, rowTitle, fetchUrl, handleModal }) {
 
   const [ rowMovies, setRowMovies ] = useState([]);
 
@@ -22,7 +22,6 @@ export default function Row({ rowId, rowTitle, fetchUrl }) {
     slider.scrollLeft += 500;
   }
 
-  
   return (
     <section className="px-5 md:px-10">
       <h2 className="text-white font-bold md:text-xl py-2">{ rowTitle }</h2>
@@ -37,7 +36,8 @@ export default function Row({ rowId, rowTitle, fetchUrl }) {
         { rowMovies?.map(( movie ) => (
           <RowMovie
             key={ movie.id }
-            movie={ movie }/>
+            movie={ movie }
+            handleModal={ handleModal }/>
         ))}
         </div>
         <MdChevronRight

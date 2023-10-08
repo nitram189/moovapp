@@ -5,11 +5,11 @@ import { UserAuth } from '../context/AuthContext';
 import { db } from '../firebase';
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 
-export default function RowMovie({ movie }) {
+export default function RowMovie({ movie, handleModal }) {
 
     const [ like, setLike ] = useState( false );
     const [ saved, setSaved ] = useState( false );
-    const { user } = UserAuth();
+    const { user, handleSelectedMovie } = UserAuth();
 
     const movieId = doc(db, 'users', `${ user?.email }`);
 
@@ -21,7 +21,9 @@ export default function RowMovie({ movie }) {
           savedMovies: arrayUnion({
             id: movie.id,
             title: movie.title,
-            img: movie.backdrop,
+            backdrop: movie.backdrop,
+            overview: movie.overview,
+            release: movie.release
           })
         })
       }
@@ -31,21 +33,23 @@ export default function RowMovie({ movie }) {
     }
 
   return (
-    <div
-      key={ movie?.id }
-      className="w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block p-2 cursor-pointer relative">
-        <img
-          src={ `https://image.tmdb.org/t/p/w500${ movie?.backdrop }`}
-          alt={`Cover related to this movie: ${ movie?.title }`}
-          className="w-full h-auto block" />
+    <div className="w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block p-2 cursor-pointer relative hover:scale-110 ease-in-out duration-300">
+      <img
+        src={ `https://image.tmdb.org/t/p/w500${ movie?.backdrop }`}
+        alt={`${ movie?.title } cover movie`}
+        className="w-full h-auto block" />
 
-        <div className="absolute top-0 left-0 w-full h-full text-white opacity-0 hover:bg-black/80 hover:opacity-100 duration-200 ease-in-out">
+      <div className="absolute top-0 left-0 w-full h-full text-white opacity-0 hover:bg-black/80 hover:opacity-100 duration-200 ease-in-out">
 
-          <p className="text-sm flex justify-center items-center h-full">{ movie?.title }</p>
+        <p 
+          onClick={() => {
+            handleModal(),
+            handleSelectedMovie( movie )}}
+          className="text-sm flex justify-center items-center h-full">{ movie?.title }</p>
 
-          <p onClick={ saveMovie }>
-            { like ? <FaHeart className='absolute top-5 left-5' /> : <FaRegHeart className='absolute top-5 left-5' /> }</p>
-        </div>
+        <p onClick={ saveMovie }>
+          { like ? <FaHeart className='absolute top-5 left-5' /> : <FaRegHeart className='absolute top-5 left-5' /> }</p>
+      </div>
     </div>
   )
 }

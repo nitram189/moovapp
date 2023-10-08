@@ -5,14 +5,15 @@ import { db } from "../firebase";
 import { updateDoc, doc, onSnapshot } from "firebase/firestore";
 import { BsFillTrash3Fill } from 'react-icons/bs';
 
-export default function SavedMovies() {
+export default function SavedMovies({ handleModal }) {
 
     const [ favMovies, setFavMovies] = useState([]);
-    const { user } = UserAuth();
+    const { user, handleSelectedMovie } = UserAuth();
+
 
     useEffect(() => {
       onSnapshot(doc( db, 'users', `${ user?.email }`), (doc) => {
-        setFavMovies(doc.data()?.savedMovies)
+        setFavMovies( doc.data()?.savedMovies )
     });
     }, [ user?.email ]);
 
@@ -43,7 +44,7 @@ export default function SavedMovies() {
         <>
           { favMovies?.length === 0 
             ? <p className="text-white font-bold md:text-xl p-5 md:p-10">There are no selected movies yet.</p>
-            : <h2 className="text-white font-bold md:text-xl p-5 md:p-10">Have a look at your favorites movies.</h2> }
+            : <h2 className="text-white font-bold md:text-xl p-5 md:p-10">Have a look at your list of movies</h2> }
 
           <div className="relative flex items-center group">
             
@@ -60,13 +61,17 @@ export default function SavedMovies() {
                 key={ movie?.id }
                 className="w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block p-2 cursor-pointer relative">
                 <img
-                  src={ `https://image.tmdb.org/t/p/w500${ movie?.img }`}
-                  alt={`Cover related to this movie: ${ movie?.title }`}
+                  src={ `https://image.tmdb.org/t/p/w500${ movie?.backdrop }`}
+                  alt={`${ movie?.title } cover image`}
                   className="w-full h-auto block" />
         
                 <div className="absolute top-0 left-0 w-full h-full text-white opacity-0 hover:bg-black/80 hover:opacity-100 duration-200 ease-in-out">
         
-                  <p className="text-sm flex justify-center items-center h-full">{ movie?.title }</p>
+                  <p onClick={() => {
+                    handleModal(),
+                    handleSelectedMovie( movie )
+                  }}
+                    className="text-sm flex justify-center items-center h-full">{ movie?.title }</p>
 
                   <p
                     onClick={() => deleteMovie( movie?.id )}

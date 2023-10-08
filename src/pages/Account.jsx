@@ -1,6 +1,6 @@
 import SavedMovies from "../components/SavedMovies";
 
-export default function Account() {
+export default function Account({ handleModal }) {
 
   return (
     <>
@@ -8,11 +8,11 @@ export default function Account() {
 
         <div className="absolute w-full h-[250px] top-0 left-0 bg-black/80">
   
-          <h1 className="text-white text-3xl font-bold absolute bottom-10 left-11">Your favorites</h1>
+          <h1 className="text-white text-3xl font-bold absolute bottom-10 left-11">Your list</h1>
         </div>
       </div>
 
-      <SavedMovies />
+      <SavedMovies handleModal={ handleModal }/>
     </>
     
   )

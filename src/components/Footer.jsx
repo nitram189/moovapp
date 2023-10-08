@@ -10,7 +10,13 @@ export default function Footer() {
           className="flex flex-col justify-center text-sm text-white">
   
           <div className="flex flex-col gap-10 lg:gap-20 sm:flex-row justify-center p-10">
-              <h5>© moovap - 2023</h5>
+              <div className="space-y-3">
+                <h5>© moovap - 2023</h5>
+                <img
+                  src='/tmdb-logo.svg'
+                  alt="The movie database logo"
+                  className="w-20" />
+              </div>
   
               <div className="flex flex-col space-y-2">
                   <h6 className="uppercase font-semibold">YouTube Channels</h6>
@@ -25,10 +31,7 @@ export default function Footer() {
                       Midulive
                   </Link>
 
-                  <Link to='https://www.youtube.com/@carpicoder' target="_blank"
-                  className="text-gray-400 hover:text-white duration-200 ease-in">
-                      Carpi Coder
-                  </Link>
+
               </div>
   
               <div className="flex flex-col space-y-2">
@@ -43,11 +46,12 @@ export default function Footer() {
           
           <div className="border-t border-white/70 text-center w-3/4 mx-auto">
               <h5 className="pt-5">All rights reserved. Website developed by{' '}
-              <Link
-                href='https://www.linkedin.com/in/martinolivera1989/' target="_blank"
-                style={{ fontWeight: 'bold' }}>
-                  Martin Olivera
-              </Link>
+                <Link
+                  href='https://www.linkedin.com/in/martinolivera1989/' target="_blank"
+                  style={{ fontWeight: 'bold' }}>
+                    Martin Olivera
+                </Link>
+              {' '}and powered by The Movie Database ©
               </h5>
           </div>
          

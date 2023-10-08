@@ -13,7 +13,8 @@ const AuthContext = createContext();
 export function AuthContextProvider({ children }) {
 
     const [ user, setUser ] = useState({});
-
+    const [ selectedMovie, setSelectedMovie ] = useState({});
+    
     function signUp( email, password ) {
       createUserWithEmailAndPassword( auth, email, password )
       setDoc(doc(db, 'users', email), {
@@ -38,13 +39,20 @@ export function AuthContextProvider({ children }) {
       }
     })
 
+    const handleSelectedMovie = ( movieSelec ) => {
+      setSelectedMovie( movieSelec )
+    }
+  
+
     return (
       <AuthContext.Provider
         value={{
           signUp,
           logIn,
           logOut,
-          user
+          user,
+          handleSelectedMovie,
+          selectedMovie
         }}>
           { children }
       </AuthContext.Provider>
